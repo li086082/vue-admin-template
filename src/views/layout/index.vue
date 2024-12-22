@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-defineOptions({
-    name: "layout_index",
-});
+import navbar from "@/views/layout/navbar.vue";
+import content from "@/views/layout/content.vue";
 </script>
 <template>
-    <div class="container">d12122</div>
+    <div class="layout">
+        <navbar></navbar>
+        <content></content>
+    </div>
 </template>
 <style lang="less" scoped>
-.container {
+.layout {
     width: 100%;
     height: 100%;
-    background-color: red;
+    display: flex;
+    flex-direction: row;
+    background-color: bisque;
 }
 </style>

@@ -1,7 +1,9 @@
 import "@/style.css";
+import "element-plus/dist/index.css";
 
 import { createApp } from "vue";
 import App from "./App.vue";
 import route from "./router";
+import ElementPlus from "element-plus";
 
-createApp(App).use(route).mount("#app");
+createApp(App).use(ElementPlus).use(route).mount("#app");
