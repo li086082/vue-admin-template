@@ -1,0 +1,9 @@
+{
+    // @recommended
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "csstools.postcss",
+        "vue.volar"
+    ]
+}
