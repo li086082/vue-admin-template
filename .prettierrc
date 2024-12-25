@@ -8,5 +8,8 @@
     "bracketSameLine": true,
     "arrowParens": "always",
     "endOfLine": "crlf",
-    "singleAttributePerLine": true
+    "singleAttributePerLine": false,
+    "htmlWhitespaceSensitivity": "css",
+    "jsxSingleQuote": false,
+    "quoteProps": "preserve"
 }

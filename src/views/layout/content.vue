@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { useAppStore } from "@/store/app";
-const store = useAppStore();
+const emit = defineEmits(["clickEvent"]);
+function clickBtn() {
+    emit("clickEvent");
+}
 </script>
+
 <template>
-    <aside class="flex-1 flex-col">
+    <aside class="flex flex-col">
         <header class="h-16 min-h-16 bg-red-500">
-            <button
-                v-on:click="
-                    {
-                        {
-                            store.setMobile(!store.mobile);
-                        }
-                    }
-                ">
-                按钮
-            </button>
+            <el-button type="primary" @click="clickBtn"> 点击 </el-button>
         </header>
-        <div class="flex-1">box</div>
+        <div class="flex-1 bg-white">Content</div>
     </aside>
 </template>
 <style lang="less" scoped></style>

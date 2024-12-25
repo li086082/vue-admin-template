@@ -1,86 +1,22 @@
 <script setup lang="ts">
-import config from "@/config";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 </script>
 <template>
-    <nav
-        class="nav"
-        :class="[store.mobile ? 'show' : 'hide']">
-        <header class="h-16 min-h-16">{{ config.title }}</header>
-        <el-scrollbar wrap-style="flex-1">
-            <p>11111</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>333</p>
-            <p>222</p>
-            <p>111</p>
-            <p>100</p>
-        </el-scrollbar>
+    <nav class="nav">
+        <header class="">{{ store.appName }}</header>
     </nav>
 </template>
 <style lang="less" scoped>
+@menuBg: #304156; // 菜单栏整体背景颜色
+@menuText: #bfcbd9;
+@menuActiveText: #409eff;
+@subMenuActiveText: #f4f4f5;
+@menuHover: #263445;
+@subMenuBg: #1f2d3d;
+@subMenuHover: #001528;
+
 .nav {
-    width: var(--nav-bar-width);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #1e293b;
-}
-.show {
-    position: relative;
-    z-index: 1;
-    opacity: 1;
-    transition: width 28s;
-}
-.hide {
-    position: fixed;
-    z-index: -1;
-    opacity: 0;
-    transition: width 28s;
+    background-color: @menuBg;
 }
 </style>
