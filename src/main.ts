@@ -1,5 +1,6 @@
-import "element-plus/dist/index.css";
+import "@/style/reset.css";
 import "@/style/index.css";
+import "element-plus/dist/index.css";
 
 import { createApp } from "vue";
 import App from "@/App.vue";
