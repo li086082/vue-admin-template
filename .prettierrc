@@ -5,11 +5,21 @@
     "singleQuote": false,
     "bracketSpacing": true,
     "printWidth": 80,
-    "bracketSameLine": true,
+    "bracketSameLine": false,
     "arrowParens": "always",
     "endOfLine": "crlf",
-    "singleAttributePerLine": false,
+    "singleAttributePerLine": true,
     "htmlWhitespaceSensitivity": "css",
     "jsxSingleQuote": false,
-    "quoteProps": "preserve"
+    "quoteProps": "preserve",
+
+    "overrides": [
+        {
+            "files": "*.vue",
+            "options": {
+                "htmlWhitespaceSensitivity": "ignore",
+                "vueIndentScriptAndStyle": true
+            }
+        }
+    ]
 }
