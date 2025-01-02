@@ -3,6 +3,17 @@
     import { ref } from "vue";
     import type { DropdownInstance } from "element-plus";
     import app from "@/config";
+    import { useTabStore } from "@/store/tabStore";
+    import Tab from "./tab.vue";
+
+    // tab存储
+    const tabs = useTabStore();
+    function addTab() {
+        tabs.addTab({ name: "系统设置", active: true });
+    }
+    function reductTab() {
+        tabs.reduceTab("系统设置");
+    }
 
     // 按钮动画
     const menuOnoff = ref<boolean>(false);
@@ -70,79 +81,28 @@
             class="tab"
             :class="{ 'fixed_tab': app.flxedHeader }"
         >
-            1
+            <Tab />
         </div>
         <div class="box">
+            <el-button
+                type="primary"
+                @click="addTab"
+            >
+                Click
+            </el-button>
+            <el-button
+                type="primary"
+                @click="reductTab"
+            >
+                reduce
+            </el-button>
             <div>22222</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
-            <div>1</div>
+            <div
+                v-for="item in 60"
+                :key="item"
+            >
+                1
+            </div>
         </div>
     </aside>
 </template>
