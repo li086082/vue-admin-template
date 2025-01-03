@@ -35,13 +35,13 @@
                     />
                 </svg>
             </div>
-            <div
+            <!-- <div
                 class="item"
-                v-for="item in 100"
+                v-for="item in 10"
                 :key="item"
             >
                 {{ item }}
-            </div>
+            </div> -->
         </div>
     </el-scrollbar>
 </template>
@@ -72,6 +72,10 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE/Edge */
+            user-select: none; /* 标准语法 */
         }
         .item:first-child {
             margin-left: 10px;
