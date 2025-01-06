@@ -1,4 +1,13 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+    import { ref } from "vue";
+
+    const account = ref<string>("");
+    const password = ref<string>("");
+
+    function handleClickLogin() {
+        console.log(account.value, password.value, status.value);
+    }
+</script>
 <template>
     <div class="container">
         <div class="moon"></div>
@@ -15,10 +24,10 @@
                         class="form_input_item"
                         name="account"
                         type="text"
+                        v-model="account"
                     />
                     <svg
                         class="account_svg"
-                        t="1706422441211"
                         viewBox="0 0 1024 1024"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -38,10 +47,10 @@
                         class="form_input_item"
                         name="password"
                         type="password"
+                        v-model="password"
                     />
                     <svg
                         class="account_svg"
-                        t="1706422409197"
                         viewBox="0 0 1024 1024"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +68,7 @@
                     <button
                         type="button"
                         class="submit"
+                        @click="handleClickLogin"
                     >
                         提交
                     </button>
@@ -122,6 +132,9 @@
                 top: 10%;
                 padding: 50px 60px;
                 box-sizing: border-box;
+                box-shadow:
+                    1px 1px 1px 1px rgba(192, 192, 192, 0.3) inset,
+                    1px 1px 1px 1px rgba(192, 192, 192, 0.3);
                 .title {
                     height: 60px;
                     line-height: 60px;
@@ -148,10 +161,10 @@
                         border-radius: 6px;
                         padding: 0 10px 0 40px;
                         font-size: 20px;
-                        &:hover {
+                        &:focus {
                             border: 1px solid rgb(87, 59, 255);
                         }
-                        &:hover ~ .account_svg {
+                        &:focus ~ .account_svg {
                             fill: rgb(87, 59, 255);
                         }
                     }
@@ -220,7 +233,7 @@
                     height: 80%;
                     position: relative;
                     top: 10%;
-                    padding: 50px 25px;
+                    padding: 20px 15px;
                 }
             }
         }

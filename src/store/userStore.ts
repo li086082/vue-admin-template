@@ -1,31 +1,42 @@
 import { defineStore } from "pinia";
-
-interface UserInfo {
-    token: string;
-    id: number;
-    account: string;
-    nickname: string;
-    accessToken: string;
-    refreshToken: string;
-}
+import { ref, reactive } from "vue";
 
 /**
- * 基础配置中心
+ * 用户信息
  */
-const baseStore = defineStore("user", {
-    state: () => ({
-        user: null as UserInfo | null,
-    }),
-    getters: {
-        getIsMobile(state) {
-            return state.user;
-        },
-    },
-    actions: {
-        setUserInfo(user: UserInfo) {
-            this.user = user;
-        },
-    },
-});
+export const useStore = defineStore("user", () => {
+    // 昵称
+    const nickname = ref<string>("");
+    const setNickname = (name: string) => {
+        nickname.value = name;
+    };
 
-export default baseStore;
+    // access_token
+    const accessToken = ref<string>("");
+    const setAccessToken = (token: string) => {
+        accessToken.value = token;
+    };
+
+    // refresh_token
+    const refreshToken = ref<string>("");
+    const setRefreshToken = (token: string) => {
+        refreshToken.value = token;
+    };
+
+    // menus
+    const menus = reactive<Array<any>>([]);
+    const setMenus = (menus: Array<any>) => {
+        menus.push(...menus);
+    };
+
+    return {
+        nickname,
+        setNickname,
+        accessToken,
+        setAccessToken,
+        refreshToken,
+        setRefreshToken,
+        menus,
+        setMenus,
+    };
+});
