@@ -6,8 +6,6 @@ import { createApp } from "vue";
 import App from "@/App.vue";
 import route from "@/router";
 import ElementPlus from "element-plus";
-import { createPinia } from "pinia";
+import pinia from "@/store/index";
 
-const pinia = createPinia();
-
-createApp(App).use(pinia).use(ElementPlus).use(route).mount("#app");
+createApp(App).use(ElementPlus).use(pinia).use(route).mount("#app");

@@ -1,9 +1,4 @@
-import axios, {
-    AxiosError,
-    type AxiosInstance,
-    type AxiosResponse,
-    type InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosError, type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
 
 import { ElMessage } from "element-plus";
 
@@ -14,11 +9,19 @@ interface Response<T = any> {
 }
 
 class HttpClient {
+    /**
+     * 后端域名
+     */
+    host: string = "http://backend.issue.com/";
+
+    /**
+     * axios实例
+     */
     axiosClient: AxiosInstance;
 
     constructor() {
         this.axiosClient = axios.create({
-            baseURL: "http://backend.issue.com/",
+            baseURL: this.host,
             timeout: 3000,
         });
 
@@ -58,14 +61,22 @@ class HttpClient {
         );
     }
 
+    /**
+     * get请求
+     * @param uri 请求uri
+     * @returns
+     */
     public get<T>(uri: string): Promise<AxiosResponse<Response<T>, any>> {
         return this.axiosClient.get<Response<T>>(uri);
     }
 
-    public post<T>(
-        uri: string,
-        data: any
-    ): Promise<AxiosResponse<Response<T>, any>> {
+    /**
+     * post请求
+     * @param uri 请求uri
+     * @param data 数据
+     * @returns
+     */
+    public post<T>(uri: string, data: any): Promise<AxiosResponse<Response<T>, any>> {
         return this.axiosClient.post<Response<T>>(uri, data);
     }
 }

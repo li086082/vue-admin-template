@@ -4,7 +4,13 @@ import { ref, reactive } from "vue";
 /**
  * 用户信息
  */
-export const useStore = defineStore("user", () => {
+export const userAppStore = defineStore("app", () => {
+    // 是否登录
+    const isLogin = ref<boolean>(false);
+    const setIsLogin = (is: boolean) => {
+        isLogin.value = is;
+    };
+
     // 昵称
     const nickname = ref<string>("");
     const setNickname = (name: string) => {
@@ -30,6 +36,8 @@ export const useStore = defineStore("user", () => {
     };
 
     return {
+        isLogin,
+        setIsLogin,
         nickname,
         setNickname,
         accessToken,

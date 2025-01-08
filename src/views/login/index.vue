@@ -1,11 +1,36 @@
 <script lang="ts" setup>
     import { ref } from "vue";
+    import { ElLoading, ElMessage } from "element-plus";
+
+    import { doLogin } from "@/apis/login";
 
     const account = ref<string>("");
     const password = ref<string>("");
+    const btnStatus = ref<boolean>(false);
 
     function handleClickLogin() {
-        console.log(account.value, password.value, status.value);
+        btnStatus.value = true; // disable button
+
+        const regex = /^[a-zA-Z][\w\-]{5,31}$/; // regex rule
+        if (!regex.test(account.value) || !regex.test(password.value)) {
+            ElMessage({
+                type: "error",
+                message: "请输入正确的账号或密码!!!!",
+                grouping: true,
+            });
+            btnStatus.value = false;
+            return;
+        }
+
+        const loading = ElLoading.service({
+            fullscreen: true,
+            text: "登录中...",
+        });
+
+        console.log(account.value, password.value);
+        doLogin(account.value, password.value).then((response: any) => {
+            console.log(response);
+        });
     }
 </script>
 <template>
@@ -68,6 +93,7 @@
                     <button
                         type="button"
                         class="submit"
+                        :disabled="btnStatus"
                         @click="handleClickLogin"
                     >
                         提交

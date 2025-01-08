@@ -1,12 +1,24 @@
-import { createRouter, createWebHistory, type Router } from "vue-router";
+import {
+    createRouter,
+    createWebHistory,
+    type RouteLocationNormalized,
+    type RouteLocationNormalizedLoaded,
+    type Router,
+} from "vue-router";
 
 import Layout from "@/views/layout/index.vue";
 import Login from "@/views/login/index.vue";
+
+import pinia from "@/store/index";
+import { userAppStore } from "@/store/appStore";
+
+const userStore = userAppStore(pinia);
 
 const route: Router = createRouter({
     history: createWebHistory(),
     routes: [
         {
+            name: "login",
             path: "/login",
             component: Login,
         },
@@ -22,5 +34,13 @@ const route: Router = createRouter({
         },
     ],
 });
+
+route.beforeEach(
+    (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded) => {
+        if (!userStore.isLogin && to.name != "login") {
+            return { name: "login" };
+        }
+    }
+);
 
 export default route;

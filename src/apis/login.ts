@@ -1,11 +1,22 @@
 import { httpClient } from "./httpClient";
 
-interface ILogin {
-    a: string;
-    b: string;
-}
+type MenuItem = {
+    id: number;
+    parent_id: number;
+    name: string;
+    icon?: null | string;
+    sort: number;
+    children?: MenuItem[];
+};
 
-export const Login = async (account: string, password: string) => {
-    const a = await httpClient.get<ILogin>("test");
-    console.log(a.data.data.a);
+type Login = {
+    nickname: string;
+    accessToken: string;
+    refreshToken: string;
+    menus: MenuItem[];
+};
+
+export const Login = async (account: string, password: string): Promise<Login> => {
+    const rs = await httpClient.get<Login>("test");
+    return rs.data.data;
 };
