@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, reactive } from "vue";
+import { type MenuItem } from "@/apis/login";
 
 /**
  * 用户信息
@@ -30,9 +31,11 @@ export const userAppStore = defineStore("app", () => {
     };
 
     // menus
-    const menus = reactive<Array<any>>([]);
-    const setMenus = (menus: Array<any>) => {
-        menus.push(...menus);
+    const menus = reactive<Array<MenuItem>>([]);
+    const setMenus = (ms: MenuItem[]) => {
+        for (const menu of ms) {
+            menus.push(menu);
+        }
     };
 
     return {

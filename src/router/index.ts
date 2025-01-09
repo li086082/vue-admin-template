@@ -27,6 +27,7 @@ const route: Router = createRouter({
             component: Layout,
             children: [
                 {
+                    name: "dashboard",
                     path: "/",
                     component: () => import("@/views/login/index.vue"),
                 },
@@ -35,12 +36,10 @@ const route: Router = createRouter({
     ],
 });
 
-route.beforeEach(
-    (to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded) => {
-        if (!userStore.isLogin && to.name != "login") {
-            return { name: "login" };
-        }
+route.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded) => {
+    if (!userStore.isLogin && to.name != "login") {
+        return { name: "login" };
     }
-);
+});
 
 export default route;

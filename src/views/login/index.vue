@@ -1,18 +1,21 @@
 <script lang="ts" setup>
     import { ref } from "vue";
     import { ElLoading, ElMessage } from "element-plus";
-
     import { doLogin } from "@/apis/login";
+    import { useRouter } from "vue-router";
+
+    const router = useRouter();
 
     const account = ref<string>("");
     const password = ref<string>("");
     const btnStatus = ref<boolean>(false);
 
-    function handleClickLogin() {
-        btnStatus.value = true; // disable button
+    async function handleClickLogin() {
+        btnStatus.value = true;
 
-        const regex = /^[a-zA-Z][\w\-]{5,31}$/; // regex rule
-        if (!regex.test(account.value) || !regex.test(password.value)) {
+        const AccountRegex = /^[a-zA-Z][a-zA-Z0-9_-]{5,31}$/;
+        const PasswordRegex = /^[a-zA-Z0-9][a-zA-Z0-9_-]{5,31}$/;
+        if (!AccountRegex.test(account.value) || !PasswordRegex.test(password.value)) {
             ElMessage({
                 type: "error",
                 message: "请输入正确的账号或密码!!!!",
@@ -27,10 +30,22 @@
             text: "登录中...",
         });
 
-        console.log(account.value, password.value);
-        doLogin(account.value, password.value).then((response: any) => {
-            console.log(response);
-        });
+        const rs: boolean = await doLogin(account.value, password.value);
+        if (rs) {
+            ElMessage({
+                type: "success",
+                message: "登录成功",
+            });
+        } else {
+            ElMessage({
+                type: "error",
+                message: "登录失败,请联系管理员",
+            });
+        }
+        loading.close();
+        btnStatus.value = false;
+
+        router.replace({ name: "dashboard" });
     }
 </script>
 <template>

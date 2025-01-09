@@ -76,7 +76,7 @@ class HttpClient {
      * @param data 数据
      * @returns
      */
-    public post<T>(uri: string, data: any): Promise<AxiosResponse<Response<T>, any>> {
+    public post<T>(uri: string, data?: any): Promise<AxiosResponse<Response<T>, any>> {
         return this.axiosClient.post<Response<T>>(uri, data);
     }
 }
