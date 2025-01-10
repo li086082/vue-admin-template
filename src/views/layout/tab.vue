@@ -5,7 +5,6 @@
 
     // 默认追加仪表盘
     tabs.addTab({ name: "仪表盘", active: true });
-    tabs.addTab({ name: "测试", active: false });
 </script>
 
 <template>
@@ -65,8 +64,8 @@
             border: 1px solid #d8dce5;
             font-size: 12px;
             cursor: pointer;
-            font-family: "Helvetica Neue", Helvetica, "PingFang SC",
-                "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+            font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial,
+                sans-serif;
             color: #495060;
             display: flex;
             flex-direction: row;

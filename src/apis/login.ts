@@ -1,8 +1,4 @@
 import { httpClient } from "@/apis/httpClient";
-import pinia from "@/store/index";
-import { userAppStore } from "@/store/appStore";
-
-const userStore = userAppStore(pinia);
 
 export type MenuItem = {
     id: number;
@@ -13,26 +9,19 @@ export type MenuItem = {
     children?: MenuItem[];
 };
 
-type Login = {
+export type Login = {
     nickname: string;
     accessToken: string;
     refreshToken: string;
     menus: MenuItem[];
 };
 
-export const doLogin = async (account: string, password: string): Promise<boolean> => {
-    const rs = await httpClient.post<Login>("sys/user/login", { account, password });
+export const doLogin = async (account: string, password: string): Promise<Login> => {
+    const rs = await httpClient.post<Login>("/api/sys/user/login", { account, password });
+    return rs.data.data;
+};
 
-    if (rs.data.code == 1000) {
-        userStore.setIsLogin(true);
-        userStore.setNickname(rs.data.data.nickname);
-        userStore.setAccessToken(rs.data.data.accessToken);
-        userStore.setRefreshToken(rs.data.data.refreshToken);
-        console.log(rs.data.data.menus);
-        userStore.setMenus(rs.data.data.menus);
-
-        return true;
-    } else {
-        return false;
-    }
+export const doLogout = async (): Promise<any> => {
+    const rs = await httpClient.get("/api/sys/user/logout");
+    return rs.data.data;
 };

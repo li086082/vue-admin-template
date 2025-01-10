@@ -1,16 +1,26 @@
 <script lang="ts" setup>
     import { ref } from "vue";
     import { ElLoading, ElMessage } from "element-plus";
-    import { doLogin } from "@/apis/login";
+    import { doLogin, type Login } from "@/apis/login";
     import { useRouter } from "vue-router";
+    import { useAppStore } from "@/store/appStore";
 
     const router = useRouter();
+
+    // verify refresh token
+    const checkAutoLogin = () => {
+        const appStore = useAppStore();
+        if (appStore.isLogin && appStore.refreshToken) {
+            console.log("自动登录");
+        }
+    };
+    checkAutoLogin();
 
     const account = ref<string>("");
     const password = ref<string>("");
     const btnStatus = ref<boolean>(false);
 
-    async function handleClickLogin() {
+    function handleClickLogin() {
         btnStatus.value = true;
 
         const AccountRegex = /^[a-zA-Z][a-zA-Z0-9_-]{5,31}$/;
@@ -30,22 +40,31 @@
             text: "登录中...",
         });
 
-        const rs: boolean = await doLogin(account.value, password.value);
-        if (rs) {
-            ElMessage({
-                type: "success",
-                message: "登录成功",
-            });
-        } else {
-            ElMessage({
-                type: "error",
-                message: "登录失败,请联系管理员",
-            });
-        }
-        loading.close();
-        btnStatus.value = false;
+        doLogin(account.value, password.value)
+            .then(
+                (rs: Login) => {
+                    const appStore = useAppStore();
+                    appStore.setIsLogin(true);
+                    appStore.setNickname(rs.nickname);
+                    appStore.setAccessToken(rs.accessToken);
+                    appStore.setRefreshToken(rs.refreshToken);
+                    appStore.setMenus(rs.menus);
 
-        router.replace({ name: "dashboard" });
+                    ElMessage({
+                        type: "success",
+                        message: "登录成功",
+                    });
+
+                    router.replace({ name: "dashboard" });
+                },
+                (err) => {
+                    console.error(err);
+                }
+            )
+            .finally(() => {
+                loading.close();
+                btnStatus.value = false;
+            });
     }
 </script>
 <template>

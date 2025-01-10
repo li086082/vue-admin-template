@@ -9,10 +9,7 @@ import {
 import Layout from "@/views/layout/index.vue";
 import Login from "@/views/login/index.vue";
 
-import pinia from "@/store/index";
-import { userAppStore } from "@/store/appStore";
-
-const userStore = userAppStore(pinia);
+import { useAppStore } from "@/store/appStore";
 
 const route: Router = createRouter({
     history: createWebHistory(),
@@ -29,7 +26,7 @@ const route: Router = createRouter({
                 {
                     name: "dashboard",
                     path: "/",
-                    component: () => import("@/views/login/index.vue"),
+                    component: () => import("@/views/dashboard/index.vue"),
                 },
             ],
         },
@@ -37,6 +34,7 @@ const route: Router = createRouter({
 });
 
 route.beforeEach((to: RouteLocationNormalized, from: RouteLocationNormalizedLoaded) => {
+    const userStore = useAppStore();
     if (!userStore.isLogin && to.name != "login") {
         return { name: "login" };
     }

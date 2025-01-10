@@ -4,7 +4,13 @@
     import type { DropdownInstance } from "element-plus";
     import app from "@/config";
     import { useTabStore } from "@/store/tabStore";
-    import Tab from "./tab.vue";
+    import Tab from "@/views/layout/tab.vue";
+    import { RouterView, useRouter } from "vue-router";
+    import { doLogout } from "@/apis/login";
+    import { useAppStore } from "@/store/appStore";
+
+    // router
+    const router = useRouter();
 
     // tab存储
     const tabs = useTabStore();
@@ -30,6 +36,31 @@
     function clickMore() {
         if (!dropdown.value) return;
         dropdown.value.handleOpen();
+    }
+
+    // 点击"退出"
+    function handleLogout() {
+        const appStore = useAppStore();
+
+        if (!appStore.isLogin || !appStore.refreshToken) {
+            appStore.setEmpty();
+            router.replace({ name: "login" });
+            return;
+        }
+
+        doLogout()
+            .then(
+                () => {
+                    appStore.setEmpty();
+                    router.replace({ name: "login" });
+                },
+                (err) => {
+                    console.error(err);
+                }
+            )
+            .finally(() => {
+                console.log("用户登出执行");
+            });
     }
 </script>
 
@@ -68,7 +99,10 @@
                     <template #dropdown>
                         <el-dropdown-menu>
                             <el-dropdown-item>个人中心</el-dropdown-item>
-                            <el-dropdown-item divided>
+                            <el-dropdown-item
+                                @click="handleLogout"
+                                divided
+                            >
                                 退出登录
                             </el-dropdown-item>
                         </el-dropdown-menu>
@@ -81,28 +115,10 @@
             class="tab"
             :class="{ 'fixed_tab': app.flxedHeader }"
         >
-            <Tab />
+            <Tab></Tab>
         </div>
         <div class="box">
-            <el-button
-                type="primary"
-                @click="addTab"
-            >
-                Click
-            </el-button>
-            <el-button
-                type="primary"
-                @click="reductTab"
-            >
-                reduce
-            </el-button>
-            <div>22222</div>
-            <div
-                v-for="item in 60"
-                :key="item"
-            >
-                1
-            </div>
+            <RouterView></RouterView>
         </div>
     </aside>
 </template>
