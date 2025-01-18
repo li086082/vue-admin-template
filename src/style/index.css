@@ -2,3 +2,6 @@
     --header-height: 60px;
     --tab-height: 32px;
 }
+.ant-modal-root div[aria-hidden="true"] {
+    display: none !important;
+}

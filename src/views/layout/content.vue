@@ -48,19 +48,10 @@
             return;
         }
 
-        doLogout()
-            .then(
-                () => {
-                    appStore.setEmpty();
-                    router.replace({ name: "login" });
-                },
-                (err) => {
-                    console.error(err);
-                }
-            )
-            .finally(() => {
-                console.log("用户登出执行");
-            });
+        doLogout().finally(() => {
+            appStore.setEmpty();
+            router.replace({ name: "login" });
+        });
     }
 </script>
 
@@ -118,7 +109,9 @@
             <Tab></Tab>
         </div>
         <div class="box">
-            <RouterView></RouterView>
+            <el-card>
+                <RouterView></RouterView>
+            </el-card>
         </div>
     </aside>
 </template>

@@ -1,4 +1,4 @@
-import { httpClient } from "@/apis/httpClient";
+import { post, get } from "@/apis/httpClient";
 
 export type MenuItem = {
     id: number;
@@ -6,6 +6,7 @@ export type MenuItem = {
     name: string;
     icon?: null | string;
     sort: number;
+    route: string;
     children?: MenuItem[];
 };
 
@@ -17,11 +18,11 @@ export type Login = {
 };
 
 export const doLogin = async (account: string, password: string): Promise<Login> => {
-    const rs = await httpClient.post<Login>("/api/sys/user/login", { account, password });
+    const rs = await post<Login>("/api/sys/user/login", { account, password });
     return rs.data.data;
 };
 
 export const doLogout = async (): Promise<any> => {
-    const rs = await httpClient.get("/api/sys/user/logout");
+    const rs = await get("/api/sys/user/logout");
     return rs.data.data;
 };

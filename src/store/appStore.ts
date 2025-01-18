@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import { type MenuItem } from "@/apis/login";
 
 /**
@@ -33,11 +33,12 @@ export const useAppStore = defineStore(
         };
 
         // menus
-        const menus = reactive<Array<MenuItem>>([]);
+        const menus = ref<Array<MenuItem>>([]);
         const setMenus = (ms: MenuItem[]) => {
-            for (const menu of ms) {
-                menus.push(menu);
-            }
+            menus.value = ms;
+        };
+        const emptyMenu = () => {
+            menus.value = [];
         };
 
         // set empty
@@ -46,7 +47,7 @@ export const useAppStore = defineStore(
             setNickname("");
             setAccessToken("");
             setRefreshToken("");
-            setMenus([]);
+            emptyMenu();
         };
 
         return {

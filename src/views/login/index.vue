@@ -7,15 +7,6 @@
 
     const router = useRouter();
 
-    // verify refresh token
-    const checkAutoLogin = () => {
-        const appStore = useAppStore();
-        if (appStore.isLogin && appStore.refreshToken) {
-            console.log("自动登录");
-        }
-    };
-    checkAutoLogin();
-
     const account = ref<string>("");
     const password = ref<string>("");
     const btnStatus = ref<boolean>(false);
@@ -82,7 +73,6 @@
                     <input
                         class="form_input_item"
                         name="account"
-                        type="text"
                         v-model="account"
                     />
                     <svg

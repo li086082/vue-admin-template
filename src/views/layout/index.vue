@@ -30,7 +30,6 @@
         window.addEventListener("resize", handleResize);
     });
     onUnmounted(() => {
-        console.log("onUnmounted");
         window.removeEventListener("resize", handleResize);
     });
 

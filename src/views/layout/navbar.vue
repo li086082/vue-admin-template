@@ -1,6 +1,9 @@
 <script setup lang="ts">
     import app from "@/config";
     import { Icon } from "@iconify/vue";
+    import { useAppStore } from "@/store/appStore";
+
+    const { menus } = useAppStore();
 </script>
 <template>
     <nav class="nav">
@@ -12,63 +15,43 @@
         </header>
         <el-scrollbar>
             <el-menu
-                default-active="2"
-                :show-timeout="0"
-                :hide-timeout="0"
+                default-active="/sys/menu"
+                :router="true"
             >
-                <el-sub-menu index="2">
-                    <template #title>
-                        <Icon
-                            icon="ic:baseline-apps"
-                            height="18"
-                            width="18"
-                            style="margin-right: 8px"
-                        />
-                        <span>系统设置</span>
-                    </template>
-                    <el-menu-item index="1-2-1">item one</el-menu-item>
-                    <el-menu-item index="1-2-2">item one</el-menu-item>
-                    <el-menu-item index="1-2-3">item one</el-menu-item>
-                    <el-menu-item index="1-2-4">item one</el-menu-item>
-                    <el-menu-item index="1-2-5">item one</el-menu-item>
-                    <el-menu-item index="1-2-6">item one</el-menu-item>
-                    <el-menu-item index="1-2-7">item one</el-menu-item>
-                    <el-menu-item index="1-2-8">item one</el-menu-item>
-                    <el-menu-item index="1-2-9">item one</el-menu-item>
-                    <el-menu-item index="1-2-10">item one</el-menu-item>
-                </el-sub-menu>
-                <el-sub-menu index="1-4">
-                    <template #title>
-                        <Icon
-                            icon="ic:baseline-blur-on"
-                            height="18"
-                            width="18"
-                            style="margin-right: 8px"
-                        />
-                        <span>游戏管理</span>
-                    </template>
-                    <el-menu-item index="2-4-1">item one</el-menu-item>
-                    <el-menu-item index="2-2-2">item one</el-menu-item>
-                    <el-menu-item index="2-2-3">item one</el-menu-item>
-                    <el-menu-item index="2-2-4">item one</el-menu-item>
-                    <el-menu-item index="2-2-5">item one</el-menu-item>
-                    <el-menu-item index="2-2-6">item one</el-menu-item>
-                    <el-menu-item index="2-2-7">item one</el-menu-item>
-                    <el-menu-item index="2-2-8">item one</el-menu-item>
-                    <el-menu-item index="2-2-9">item one</el-menu-item>
-                    <el-menu-item index="2-2-10">item one</el-menu-item>
-                    <el-menu-item index="2-2-11">item one</el-menu-item>
-                    <el-menu-item index="2-2-12">item one</el-menu-item>
-                    <el-menu-item index="2-2-13">item one</el-menu-item>
-                    <el-menu-item index="2-2-14">item one</el-menu-item>
-                    <el-menu-item index="2-2-15">item one</el-menu-item>
-                    <el-menu-item index="2-2-16">item one</el-menu-item>
-                    <el-menu-item index="2-2-17">item one</el-menu-item>
-                    <el-menu-item index="2-2-18">item one</el-menu-item>
-                    <el-menu-item index="2-2-19">item one</el-menu-item>
-                    <el-menu-item index="2-2-20">item one</el-menu-item>
-                    <el-menu-item index="2-2-31">item one</el-menu-item>
-                </el-sub-menu>
+                <template
+                    v-for="menu in menus"
+                    :key="menu.id"
+                >
+                    <el-sub-menu
+                        index="4"
+                        v-if="menu.children"
+                    >
+                        <template #title>
+                            <Icon
+                                v-if="menu.icon"
+                                :icon="menu.icon"
+                                height="18"
+                                width="18"
+                                style="margin-right: 8px"
+                            />
+                            <span>{{ menu.name }}</span>
+                        </template>
+                        <el-menu-item
+                            v-for="(v, k) in menu.children"
+                            :key="k"
+                            :index="v.route"
+                        >
+                            <Icon
+                                v-if="v.icon"
+                                :icon="v.icon"
+                                height="18"
+                                width="18"
+                                style="margin-right: 8px"
+                            />
+                            {{ v.name }}
+                        </el-menu-item>
+                    </el-sub-menu>
+                </template>
             </el-menu>
         </el-scrollbar>
     </nav>

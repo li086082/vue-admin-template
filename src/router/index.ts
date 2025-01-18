@@ -28,6 +28,16 @@ const route: Router = createRouter({
                     path: "/",
                     component: () => import("@/views/dashboard/index.vue"),
                 },
+                {
+                    name: "sysUser",
+                    path: "/sys/user",
+                    component: () => import("@/views/sys/user/index.vue"),
+                },
+                {
+                    name: "sysMenu",
+                    path: "/sys/menu",
+                    component: () => import("@/views/sys/menu/index.vue"),
+                },
             ],
         },
     ],
